@@ -1,0 +1,9 @@
+[server]
+bind_addr = "127.0.0.1:13333"
+default_token = "rathole_socks5_test_token"
+
+[server.transport]
+type = "tcp"
+
+[server.services.socks_test]
+bind_addr = "127.0.0.1:13334"
