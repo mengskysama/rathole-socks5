@@ -45,11 +45,20 @@ rathole-socks5 \
 | `--socks5-username`   |          | —       | require SOCKS5 username/password auth; must pair with `--socks5-password` |
 | `--socks5-password`   |          | —       | SOCKS5 password; must pair with `--socks5-username`       |
 
-Use `RUST_LOG=info` (or `debug`, `trace`) to control log verbosity:
+Use `RUST_LOG` to control log verbosity (`error`, `warn`, `info`, `debug`, `trace`, `off`):
 
 ```bash
-RUST_LOG=rathole_socks5=debug rathole-socks5 --remote-addr ...
+RUST_LOG=debug rathole-socks5 --remote-addr ...
 ```
+
+Once running, verify the proxy works:
+
+```bash
+# socks5h: resolve DNS on the proxy side
+curl -x socks5h://test_user:your_password@server_ip:1080 http://google.com
+```
+
+> **Security warning**: the public SOCKS5 port (`bind_addr` in the rathole server config) is an open proxy for anyone who can reach it. If exposed to the internet without `--socks5-username`/`--socks5-password`, anyone can relay arbitrary traffic through your server. Always set credentials, and consider firewall rules to restrict access to trusted IPs.
 
 ### Server side
 

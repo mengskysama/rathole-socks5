@@ -8,15 +8,15 @@ use clap::Parser;
 use rathole_socks5::cli::Cli;
 use tokio::signal;
 use tokio::sync::broadcast;
-use tracing_subscriber::EnvFilter;
+use tracing_subscriber::filter::LevelFilter;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tracing_subscriber::fmt()
-        .with_env_filter(
-            EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")),
-        )
-        .init();
+    let level = std::env::var("RUST_LOG")
+        .ok()
+        .and_then(|v| v.trim().parse::<LevelFilter>().ok())
+        .unwrap_or(LevelFilter::INFO);
+    tracing_subscriber::fmt().with_max_level(level).init();
 
     let cli = Cli::parse();
     let config = cli.into_config();

@@ -2,7 +2,7 @@
 name = "rathole-socks5"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.75"
+rust-version = "1.82"
 description = "Minimal Rust client that turns a rathole-server-exposed TCP port into a SOCKS5 entry point."
 license = "MIT"
 repository = "https://github.com/rathole-org/rathole-socks5"
@@ -36,7 +36,7 @@ tokio = { version = "1", default-features = false, features = [
 sha2 = { version = "0.10", default-features = false }
 tracing = { version = "0.1", default-features = false, features = ["std"] }
 clap = { version = "4", features = ["derive"], optional = true }
-tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "env-filter"], optional = true }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"], optional = true }
 
 [dev-dependencies]
 rathole = { git = "https://github.com/rathole-org/rathole", rev = "5a9dd6d939744859af322aeff7fd60f7483a68bc", default-features = false, features = ["server", "client", "hot-reload"] }
